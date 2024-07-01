@@ -21,5 +21,5 @@ dependencies:
   intl: ^0.17.0
   path_provider: ^2.0.9
   permission_handler: ^10.2.0
-  newert_vitaltrack:
-    path: ../newert_vitaltrack
+  newert_vitaltrack: ^1.0.0
+
