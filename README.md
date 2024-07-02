@@ -1,25 +1,24 @@
-# Newert VitalTrack SDK
-
-The Newert VitalTrack SDK is a Flutter package that enables scanning and connecting to Bluetooth LE devices and collecting biometric data. Currently, it supports only Android.
+# VitalTrack SDK
+VitalTrack SDK is a comprehensive solution designed to facilitate the integration and management of Bluetooth Low Energy (BLE) devices within Flutter applications. The SDK provides a robust set of tools for scanning, connecting, and interacting with BLE devices, making it an ideal choice for developers working on health tracking, fitness, or any IoT projects requiring BLE communication.
 
 ## Features
+1. Bluetooth Device Scanning: Discover nearby BLE devices and list them for user selection.
+2. Device Connection: Seamlessly connect to BLE devices and manage connection states.
+3. Service and Characteristic Discovery: Automatically discover and interact with device services and characteristics.
+4. Data Subscription: Subscribe to data streams from connected devices, including PPG, ACC, Gyro, and Mag data.
+5. Command Writing: Send commands to connected devices to control their operations.
+6. Error Handling and Reconnection: Robust handling of connection errors with automatic reconnection attempts.
 
-- Scan and connect to Bluetooth LE devices
-- Collect PPG, ACC, Gyro, and Mag data
-- Real-time communication with devices
 
 ## Installation
-
-Add the dependency to your `pubspec.yaml` file:
-
-```yaml
+```   
+Add the following dependencies to your pubspec.yaml file:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_reactive_ble: ^5.0.1
-  get: ^4.6.5
-  intl: ^0.17.0
-  path_provider: ^2.0.9
-  permission_handler: ^10.2.0
-  newert_vitaltrack: ^1.0.0
-
+  get:
+  flutter_reactive_ble:
+  intl:
+  permission_handler:
+  path_provider:
+```   
