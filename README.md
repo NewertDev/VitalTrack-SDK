@@ -111,29 +111,45 @@ class BleScreen extends StatelessWidget {
 ### Measure Screen
 The MeasureScreen widget is used for displaying and recording data from the connected BLE device.
 ```   
-class BleScreen extends StatelessWidget {
-  final BleController bleController = Get.put(BleController());
+class MeasureScreen extends StatefulWidget {
+  @override
+  _MeasureScreenState createState() => _MeasureScreenState();
+}
 
+class _MeasureScreenState extends State<MeasureScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
+      appBar: AppBar(
+        title: Text("VitalTrack SDK"),
+      ),
+      body: SingleChildScrollView(
         child: Column(
           children: [
-            // UI components for scanning and displaying devices
+            // UI components for displaying data
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Handle start/stop recording
+        },
+        child: Obx(() {
+          // Update FAB icon based on recording state
+        }),
+      ),
     );
   }
-
-  Widget listItem(DiscoveredDevice device) {
-    // Build list item for each discovered device
-  }
-
-  void onTap(DiscoveredDevice device) {
-    // Handle device selection and connection
-  }
 }
-
 ```   
+
+## Permissions
+Ensure to request the necessary permissions for Bluetooth and location services. The BleScreen and MeasureScreen widgets include methods to request these permissions using the permission_handler package.
+
+## Contributing
+Contributions are welcome! Please submit pull requests or open issues for any bugs or feature requests.
+
+## Requirements
+Dart SDK >=2.12.0 <3.0.0
+Flutter SDK >=2.0.0
+Android API Level 21+
