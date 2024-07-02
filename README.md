@@ -9,16 +9,131 @@ VitalTrack SDK is a comprehensive solution designed to facilitate the integratio
 5. Command Writing: Send commands to connected devices to control their operations.
 6. Error Handling and Reconnection: Robust handling of connection errors with automatic reconnection attempts.
 
-
-## Installation
+## Usage
+Import the necessary packages and initialize the BleController in your main widget:
+### Initialization
 ```   
-Add the following dependencies to your pubspec.yaml file:
-dependencies:
-  flutter:
-    sdk: flutter
-  get:
-  flutter_reactive_ble:
-  intl:
-  permission_handler:
-  path_provider:
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'controller/bleController.dart';
+import 'view/bleScreen.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return GetMaterialApp(
+      home: BleScreen(),
+    );
+  }
+}
+
+```   
+
+### BLE Controller
+The BleController handles all BLE operations. It scans for devices, connects to them, discovers services and characteristics, and subscribes to data streams.
+```   
+class BleController extends GetxController {
+  // Initialize the BLE controller and variables
+
+  @override
+  void onInit() {
+    super.onInit();
+    _ble.statusStream.listen((status) {
+      if (status == BleStatus.ready) {
+        startScan();
+      }
+    });
+  }
+
+  void startScan() {
+    // Start scanning for BLE devices
+  }
+
+  Future<void> connectToDevice(DiscoveredDevice device) async {
+    // Connect to a BLE device and manage connection states
+  }
+
+  void discoverServices(DiscoveredDevice device) async {
+    // Discover services and characteristics
+  }
+
+  void subscribeToCharacteristic(QualifiedCharacteristic characteristic) {
+    // Subscribe to characteristic notifications and handle incoming data
+  }
+
+  void writeCMDToDevice(String cmd) async {
+    // Write commands to the connected device
+  }
+
+  @override
+  void onClose() {
+    stopScan();
+    super.onClose();
+  }
+}
+```   
+
+### BLE Screen
+The BleScreen widget provides the user interface for scanning and connecting to BLE devices. It lists discovered devices and handles user interactions.
+```   
+class BleScreen extends StatelessWidget {
+  final BleController bleController = Get.put(BleController());
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            // UI components for scanning and displaying devices
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget listItem(DiscoveredDevice device) {
+    // Build list item for each discovered device
+  }
+
+  void onTap(DiscoveredDevice device) {
+    // Handle device selection and connection
+  }
+}
+
+```   
+
+
+### Measure Screen
+The MeasureScreen widget is used for displaying and recording data from the connected BLE device.
+```   
+class BleScreen extends StatelessWidget {
+  final BleController bleController = Get.put(BleController());
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            // UI components for scanning and displaying devices
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget listItem(DiscoveredDevice device) {
+    // Build list item for each discovered device
+  }
+
+  void onTap(DiscoveredDevice device) {
+    // Handle device selection and connection
+  }
+}
+
 ```   
