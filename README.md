@@ -1,6 +1,9 @@
 # VitalTrack SDK
 VitalTrack SDK is a comprehensive solution designed to facilitate the integration and management of Bluetooth Low Energy (BLE) devices within Flutter applications. The SDK provides a robust set of tools for scanning, connecting, and interacting with BLE devices, making it an ideal choice for developers working on health tracking, fitness, or any IoT projects requiring BLE communication.
 
+![VitalTrack image](https://github.com/NewertDev/VitalTrack-SDK/assets/142801626/7a68b848-65ed-4ebf-b132-a7a5a03e1ec0)
+
+
 ## Features
 1. Bluetooth Device Scanning: Discover nearby BLE devices and list them for user selection.
 2. Device Connection: Seamlessly connect to BLE devices and manage connection states.
