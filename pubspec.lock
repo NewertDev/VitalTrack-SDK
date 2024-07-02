@@ -180,10 +180,10 @@ packages:
     dependency: "direct main"
     description:
       name: newert_vitaltrack
-      sha256: "06e5b1f4cc1127d20eb2a521366be71328b92d3958cc349b82330ae095d3f568"
+      sha256: "6fa1e5ee206b9eb15c01c92aa40b6921a7da4cd4cad1f1d4d881043547312407"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.0"
+    version: "1.0.1"
   path:
     dependency: transitive
     description:
