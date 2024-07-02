@@ -1,4 +1,5 @@
-import 'package:newert_vitaltrack/src/newert_vitaltrack.dart';
+import 'package:newert_vitaltrack/src/processing.dart';
+import 'package:newert_vitaltrack/src/bleStatus.dart';
 
 import 'dart:async';
 import 'dart:collection';

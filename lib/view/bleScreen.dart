@@ -1,5 +1,6 @@
 import 'dart:async';
-import 'package:newert_vitaltrack/src/newert_vitaltrack.dart';
+import 'package:newert_vitaltrack/src/processing.dart';
+import 'package:newert_vitaltrack/src/bleStatus.dart';
 
 import '../view/style.dart';
 import 'measureScreen.dart';

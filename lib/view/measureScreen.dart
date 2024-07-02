@@ -1,4 +1,4 @@
-import 'package:newert_vitaltrack/src/newert_vitaltrack.dart';
+import 'package:newert_vitaltrack/src/processing.dart';
 
 import 'dart:async';
 import 'dart:convert';

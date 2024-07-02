@@ -1,4 +1,5 @@
-import 'package:newert_vitaltrack/src/newert_vitaltrack.dart';
+import 'package:newert_vitaltrack/src/processing.dart';
+import 'package:newert_vitaltrack/src/bleStatus.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
