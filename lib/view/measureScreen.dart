@@ -1,4 +1,6 @@
+import 'package:flutter/widgets.dart';
 import 'package:newert_vitaltrack/src/processing.dart';
+import 'package:newert_vitaltrack/src/bleStatus.dart';
 
 import 'dart:async';
 import 'dart:convert';
@@ -29,6 +31,18 @@ class _MeasureScreenState extends State<MeasureScreen> {
   // Start Button
   RxBool isRecording = false.obs;
   DateTime startTime = DateTime.now();
+
+  // RxList
+  RxList rxppgDataList = [0.0].obs;
+  RxList rxaccDataList = [
+    [0.0, 0.0, 0.0]
+  ].obs;
+  RxList rxgyroDataList = [
+    [0.0, 0.0, 0.0]
+  ].obs;
+  RxList rxmagDataList = [
+    [0.0, 0.0, 0.0]
+  ].obs;
 
   @override
   void initState() {
@@ -84,6 +98,11 @@ class _MeasureScreenState extends State<MeasureScreen> {
         List<List<double>> resultGyro =
             dataSource.getAxisData(gyroDataList, 50);
         List<List<double>> resultMag = dataSource.getAxisData(magDataList, 50);
+
+        rxppgDataList.value = dataSource.getScalarData(ppgDataList, 50);
+        rxaccDataList.value = dataSource.getAxisData(accDataList, 50);
+        rxgyroDataList.value = dataSource.getAxisData(gyroDataList, 50);
+        rxmagDataList.value = dataSource.getAxisData(magDataList, 50);
 
         debugPrint("PPG data for 1 seconds : $resultPPG");
         debugPrint("ACC data for 1 seconds: $resultACC");
@@ -226,23 +245,56 @@ class _MeasureScreenState extends State<MeasureScreen> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Row(
+              Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [],
+                children: [
+                  Obx(() => Container(
+                        width: 250,
+                        height: 100,
+                        child: Center(
+                            child: Text('PPG data : ${rxppgDataList.last}')),
+                      )),
+                  Obx(() => Container(
+                        width: 250,
+                        height: 100,
+                        child: Center(
+                          child: Text('ACC data : ${rxaccDataList.last}'),
+                        ),
+                      )),
+                  Obx(() => Container(
+                        width: 250,
+                        height: 100,
+                        child: Center(
+                          child: Text('Gyro data : ${rxgyroDataList.last}'),
+                        ),
+                      )),
+                  Obx(() => Container(
+                        width: 250,
+                        height: 100,
+                        child: Center(
+                          child: Text('Mag data : ${rxmagDataList.last}'),
+                        ),
+                      ))
+                ],
               ),
             ],
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
+          onPressed: () async {
             if (isRecording.value) {
               startTime = DateTime.now();
-              // bleController.writeCMDToDevice(CMD.STOP_PPG);
+              startTime = DateTime.now();
               bleController.writeCMDToDevice(CMD.STOP_PPG);
+              await Future.delayed(const Duration(milliseconds: 10));
+              bleController.writeCMDToDevice(CMD.SETUP_DATA);
               _stopTimer();
             } else {
-              // bleController.writeCMDToDevice(CMD.START_PPG);
+              bleController.writeCMDToDevice(CMD.ON_1V8);
+              await Future.delayed(const Duration(milliseconds: 10));
               bleController.writeCMDToDevice(CMD.START_PPG);
+              await Future.delayed(const Duration(milliseconds: 10));
+              bleController.writeCMDToDevice(CMD.SETUP_DATA);
               _startGetDataTimer();
             }
             isRecording.value = !isRecording.value;
