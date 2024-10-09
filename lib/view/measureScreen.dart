@@ -110,6 +110,7 @@ class _MeasureScreenState extends State<MeasureScreen> {
         debugPrint("Mag data for 1 seconds: $resultMag");
 
         setTimeToDevice();
+        await Future.delayed(const Duration(milliseconds: 100));
         sendHRToDevice(100);
       }
     });
@@ -398,14 +399,14 @@ class _MeasureScreenState extends State<MeasureScreen> {
               startTime = DateTime.now();
               startTime = DateTime.now();
               bleController.writeCMDToDevice(CMD.STOP_PPG);
-              await Future.delayed(const Duration(milliseconds: 10));
+              await Future.delayed(const Duration(milliseconds: 100));
               bleController.writeCMDToDevice(CMD.SETUP_DATA);
               _stopTimer();
             } else {
               bleController.writeCMDToDevice(CMD.ON_1V8);
-              await Future.delayed(const Duration(milliseconds: 10));
+              await Future.delayed(const Duration(milliseconds: 100));
               bleController.writeCMDToDevice(CMD.START_PPG);
-              await Future.delayed(const Duration(milliseconds: 10));
+              await Future.delayed(const Duration(milliseconds: 100));
               bleController.writeCMDToDevice(CMD.SETUP_DATA);
               _startGetDataTimer();
             }

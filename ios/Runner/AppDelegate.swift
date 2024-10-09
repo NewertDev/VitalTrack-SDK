@@ -2,7 +2,7 @@ import UIKit
 import Flutter
 import UserNotifications
 
-@UIApplicationMain
+@main
 @objc class AppDelegate: FlutterAppDelegate {
   override func application(
     _ application: UIApplication,
@@ -18,7 +18,7 @@ import UserNotifications
 
 
     let controller: FlutterViewController = window?.rootViewController as! FlutterViewController
-    let methodChannel = FlutterMethodChannel(name: "com.newert.vitaltrack/keepAlive", binaryMessenger: controller.binaryMessenger)
+    let methodChannel = FlutterMethodChannel(name: "com.example.vitaltrack_sample_app/keepAlive", binaryMessenger: controller.binaryMessenger)
 
     methodChannel.setMethodCallHandler { (call: FlutterMethodCall, result: @escaping FlutterResult) in
       if (call.method == "keepAlive") {
