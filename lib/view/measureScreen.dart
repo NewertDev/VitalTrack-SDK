@@ -108,12 +108,55 @@ class _MeasureScreenState extends State<MeasureScreen> {
         debugPrint("ACC data for 1 seconds: $resultACC");
         debugPrint("Gyro data for 1 seconds: $resultGyro");
         debugPrint("Mag data for 1 seconds: $resultMag");
+
+        setTimeToDevice();
+        sendHRToDevice(100);
       }
     });
   }
 
   void _stopTimer() {
     _dataTimer?.cancel();
+  }
+
+// 이 함수는 현재 시간을 장치에 설정하는 명령어를 보내는 함수입니다.
+// 함수는 사용되지 않지만, 다른 사용자가 필요할 때 참고할 수 있도록 작성되었습니다.
+// 현재 시간은 "시:분" 형식으로 포맷팅되어 장치에 전달됩니다.
+//
+// 사용 예:
+// ```
+// setTimeToDevice();
+// ```
+//
+// `bleController.writeDataToDevice`는 BLE 장치에 데이터를 전송하는 함수로,
+// 현재 시간을 포함한 명령어를 해당 장치에 보내는 역할을 합니다.
+
+  void setTimeToDevice() {
+    DateTime now = DateTime.now(); // 현재 시간 가져오기
+    String formattedTime =
+        "${now.hour.toString()}:${now.minute.toString()}"; // "시:분" 형식으로 시간 포맷팅
+
+    // 포맷된 시간 출력 및 BLE 장치에 전송
+    print("SET TIME $formattedTime");
+    bleController.writeDataToDevice('\nSET TIME $formattedTime\n');
+  }
+
+// 이 함수는 장치에 BPM 값을 설정하는 명령어를 보내는 함수입니다.
+// 함수는 사용되지 않지만, 사용자가 필요할 때 참고할 수 있도록 작성되었습니다.
+// HR 값은 소수점 없이 정수로 변환되어 장치에 전달됩니다.
+//
+// 사용 예:
+// ```
+// int bpm = 120;  // 예시로 BPM 값을 120으로 설정
+// sendBpmToDevice(bpm);
+// ```
+//
+// `bleController.writeDataToDevice`는 BLE 장치에 데이터를 전송하는 함수로,
+// BPM 값을 포함한 명령어를 해당 장치에 보내는 역할을 합니다.
+
+  void sendHRToDevice(double HR) {
+    // BPM 값을 BLE 장치에 전송
+    bleController.writeDataToDevice('\nSET BPM ${HR.toStringAsFixed(0)}\n');
   }
 
   @override
@@ -249,32 +292,101 @@ class _MeasureScreenState extends State<MeasureScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Obx(() => Container(
-                        width: 250,
+                        width: double.infinity,
                         height: 100,
+                        padding: const EdgeInsets.all(16.0),
+                        margin: const EdgeInsets.symmetric(vertical: 4.0),
+                        decoration: BoxDecoration(
+                          color: Colors.blue.shade50,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: AppColors.point, width: 1),
+                        ),
                         child: Center(
-                            child: Text('PPG data : ${rxppgDataList.last}')),
+                            child: Text('PPG Data: ${rxppgDataList.last}',
+                                style: AppTextStyle.bodyRegular.copyWith(
+                                    fontSize: 16, color: Colors.blueGrey))),
                       )),
                   Obx(() => Container(
-                        width: 250,
-                        height: 100,
-                        child: Center(
-                          child: Text('ACC data : ${rxaccDataList.last}'),
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(16.0),
+                        margin: const EdgeInsets.symmetric(vertical: 4.0),
+                        decoration: BoxDecoration(
+                          color: Colors.green.shade50,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: AppColors.point, width: 1),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('ACC Data:',
+                                style: AppTextStyle.bodyRegular.copyWith(
+                                    fontSize: 16, color: Colors.blueGrey)),
+                            Text('X: ${rxaccDataList.last[0]}',
+                                style: AppTextStyle.bodyRegular.copyWith(
+                                    fontSize: 14, color: Colors.blueGrey)),
+                            Text('Y: ${rxaccDataList.last[1]}',
+                                style: AppTextStyle.bodyRegular.copyWith(
+                                    fontSize: 14, color: Colors.blueGrey)),
+                            Text('Z: ${rxaccDataList.last[2]}',
+                                style: AppTextStyle.bodyRegular.copyWith(
+                                    fontSize: 14, color: Colors.blueGrey)),
+                          ],
                         ),
                       )),
                   Obx(() => Container(
-                        width: 250,
-                        height: 100,
-                        child: Center(
-                          child: Text('Gyro data : ${rxgyroDataList.last}'),
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(16.0),
+                        margin: const EdgeInsets.symmetric(vertical: 4.0),
+                        decoration: BoxDecoration(
+                          color: Colors.orange.shade50,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: AppColors.point, width: 1),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Gyro Data:',
+                                style: AppTextStyle.bodyRegular.copyWith(
+                                    fontSize: 16, color: Colors.blueGrey)),
+                            Text('X: ${rxgyroDataList.last[0]}',
+                                style: AppTextStyle.bodyRegular.copyWith(
+                                    fontSize: 14, color: Colors.blueGrey)),
+                            Text('Y: ${rxgyroDataList.last[1]}',
+                                style: AppTextStyle.bodyRegular.copyWith(
+                                    fontSize: 14, color: Colors.blueGrey)),
+                            Text('Z: ${rxgyroDataList.last[2]}',
+                                style: AppTextStyle.bodyRegular.copyWith(
+                                    fontSize: 14, color: Colors.blueGrey)),
+                          ],
                         ),
                       )),
                   Obx(() => Container(
-                        width: 250,
-                        height: 100,
-                        child: Center(
-                          child: Text('Mag data : ${rxmagDataList.last}'),
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(16.0),
+                        margin: const EdgeInsets.symmetric(vertical: 4.0),
+                        decoration: BoxDecoration(
+                          color: Colors.purple.shade50,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: AppColors.point, width: 1),
                         ),
-                      ))
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Mag Data:',
+                                style: AppTextStyle.bodyRegular.copyWith(
+                                    fontSize: 16, color: Colors.blueGrey)),
+                            Text('X: ${rxmagDataList.last[0]}',
+                                style: AppTextStyle.bodyRegular.copyWith(
+                                    fontSize: 14, color: Colors.blueGrey)),
+                            Text('Y: ${rxmagDataList.last[1]}',
+                                style: AppTextStyle.bodyRegular.copyWith(
+                                    fontSize: 14, color: Colors.blueGrey)),
+                            Text('Z: ${rxmagDataList.last[2]}',
+                                style: AppTextStyle.bodyRegular.copyWith(
+                                    fontSize: 14, color: Colors.blueGrey)),
+                          ],
+                        ),
+                      )),
                 ],
               ),
             ],
