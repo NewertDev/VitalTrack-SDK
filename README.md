@@ -11,8 +11,6 @@
 
 VitalTrack 앱을 실행합니다. 처음 실행할 때 블루투스 권한 및 위치 접근 권한을 요청할 수 있으므로 허용해 주세요.
 
-![VitalTrack image](https://github.com/NewertDev/VitalTrack-SDK/assets/142801626/7a68b848-65ed-4ebf-b132-a7a5a03e1ec0)
-
 1.2 장치 연결
 
 1.2.1 장치 검색 및 페어링
