@@ -1,4 +1,34 @@
 # VitalTrack SDK
+
+## Features
+소개
+VitalTrack SDK는 BLE 장치를 활용하여 PPG 및 IMU 데이터를 수집하고 처리할 수 있는 Flutter 기반 라이브러리입니다. 이 SDK를 통해 실시간으로 생체신호를 기록하고, 장치 간 BLE 통신을 간편하게 구현할 수 있습니다.
+
+### 1. 사용법
+VitalTrack SDK는 BLE 장치와 연결, 데이터 수집, 명령 전송 기능을 포함합니다. 아래에 주요 기능 사용 예시를 제공합니다.
+
+### 2.1 BLE 장치 스캔 및 연결
+BLE 장치 스캔을 시작하고 원하는 장치에 연결할 수 있습니다.
+'''
+final bleController = BleController();  // 컨트롤러 인스턴스 생성
+
+void startScanAndConnect() async {
+  bleController.startScan();  // 스캔 시작
+
+  // 스캔된 장치 중 첫 번째 장치와 연결
+  if (bleController.devices.isNotEmpty) {
+    DiscoveredDevice selectedDevice = bleController.devices.first;
+    await bleController.connectToDevice(selectedDevice);
+  }
+}
+
+'''
+
+
+
+
+
+
 1.1 앱 초기 설정
 
 1.1.1 블루투스 활성화
@@ -41,13 +71,8 @@ IMU(Inertial Measurement Unit) 데이터를 실시간으로 확인할 수 있습
 
 저장 경로: Android Device\내장 저장공간\Android\data\com.newert.vital_track_app\files
 
-## Features
-1. Bluetooth Device Scanning: Discover nearby BLE devices and list them for user selection.
-2. Device Connection: Seamlessly connect to BLE devices and manage connection states.
-3. Service and Characteristic Discovery: Automatically discover and interact with device services and characteristics.
-4. Data Subscription: Subscribe to data streams from connected devices, including PPG, ACC, Gyro, and Mag data.
-5. Command Writing: Send commands to connected devices to control their operations.
-6. Error Handling and Reconnection: Robust handling of connection errors with automatic reconnection attempts.
+
+
 
 ## Usage
 Import the necessary packages and initialize the BleController in your main widget:
