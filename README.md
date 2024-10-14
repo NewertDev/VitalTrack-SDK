@@ -1,10 +1,11 @@
 # VitalTrack SDK
 
 ## 소개
-VitalTrack SDK는 BLE 장치를 활용하여 PPG 및 IMU 데이터를 수집하고 처리할 수 있는 Flutter 기반 라이브러리입니다. 이 SDK를 통해 실시간으로 생체신호를 기록하고, 장치 간 BLE 통신을 간편하게 구현할 수 있습니다.
+**VitalTrack SDK**는 BLE 장치를 활용하여 **PPG 및 IMU 데이터를 수집하고 처리**할 수 있는 Flutter 기반 라이브러리입니다. 
+이 SDK를 통해 실시간으로 **생체신호를 기록**하고, 장치 간 BLE 통신을 간편하게 구현할 수 있습니다.
 
 ### 1. 사용법
-VitalTrack SDK는 BLE 장치와 연결, 데이터 수집, 명령 전송 기능을 포함합니다. 아래에 주요 기능 사용 예시를 제공합니다.
+VitalTrack SDK는 **BLE 장치와 연결, 데이터 수집, 명령 전송 기능**을 포함합니다. 아래에 주요 기능 사용 예시를 제공합니다.
 
 ### 1.1 BLE 장치 스캔 및 연결
 BLE 장치 스캔을 시작하고 원하는 장치에 연결할 수 있습니다.
@@ -77,6 +78,24 @@ Future<void> requestPermissions() async {
 
 
 ## 요구사항
-Dart SDK >=2.12.0 <3.0.0
-Flutter SDK >=2.0.0
-Android API Level 23+
+아래는 SDK의 실행을 위한 환경 요구사항입니다.
+
+### 시스템 요구사항:
+Flutter SDK: >=3.0.0
+Dart SDK: >=2.18.0
+Android API: 23 이상
+Windows OS: 10 이상
+
+## 개발 환경
+- Flutter 버전: 3.22.2 (채널 stable)
+- Android SDK 버전: 34.0.0
+- Visual Studio Community 2022: 17.3.6
+- Android Studio: 2022.3 (최신 버전 권장)
+
+## 주의사항
+- Android Studio 설치 시, Java 버전을 올바르게 설정해야 합니다.
+- BLE 권한이 필요한 플랫폼에서는 권한 요청을 반드시 수행하세요.
+- BLE 장치와의 연결 시 네트워크 상태 및 거리도 확인해 주세요.
+
+
+문의 및 지원: 자세한 내용은 공식 웹사이트(www.newert.co.kr) 에서 확인할 수 있습니다.
