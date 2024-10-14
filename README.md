@@ -9,7 +9,7 @@ VitalTrack SDK는 BLE 장치와 연결, 데이터 수집, 명령 전송 기능�
 
 ### 2.1 BLE 장치 스캔 및 연결
 BLE 장치 스캔을 시작하고 원하는 장치에 연결할 수 있습니다.
-'''
+``` 
 final bleController = BleController();  // 컨트롤러 인스턴스 생성
 
 void startScanAndConnect() async {
@@ -21,8 +21,7 @@ void startScanAndConnect() async {
     await bleController.connectToDevice(selectedDevice);
   }
 }
-
-'''
+```
 
 
 
