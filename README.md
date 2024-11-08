@@ -28,18 +28,66 @@ PPG 및 IMU 데이터를 수집하고 처리하는 타이머를 설정합니다
 
 ```
 void startDataCollection() {
-  bleController.writeCMDToDevice(CMD.START_PPG);  // 데이터 수집 시작
-  _startGetDataTimer();  // 1초 간격으로 데이터 수집
+  // 데이터 수집 시작
+  bleController.writeCMDToDevice(CMD.ON_1V8);
+  await Future.delayed(const Duration(milliseconds: 10));
+  bleController.writeCMDToDevice(CMD.START_PPG);
+  await Future.delayed(const Duration(milliseconds: 10));
+  bleController.writeCMDToDevice(CMD.SETUP_DATA);
+
+  // 1초 간격으로 데이터 수집
+  _startGetDataTimer();  
 }
 
-void _startGetDataTimer() {
-  Timer.periodic(const Duration(seconds: 1), (timer) {
-    List<double> ppgData = bleController.receivedPPGDataQueue.toList();
+
+  void _startGetDataTimer() {
     bleController.receivedPPGDataQueue.clear();
+    bleController.receivedACCDataQueue.clear();
+    bleController.receivedGyroDataQueue.clear();
+    bleController.receivedMagDataQueue.clear();
 
-    print("1초 간격의 PPG 데이터: $ppgData");
-  });
-}
+    var dataSource = DataSource();
+
+    _dataTimer =
+        Timer.periodic(const Duration(milliseconds: 1000), (timer) async {
+      List<double> ppgDataList = [];
+      List<List<double>> accDataList = [];
+      List<List<double>> gyroDataList = [];
+      List<List<double>> magDataList = [];
+
+      // PPG 데이터 처리
+      ppgDataList.addAll(bleController.receivedPPGDataQueue);
+      bleController.receivedPPGDataQueue.clear();
+
+      // 가속도계 데이터 처리
+      accDataList.addAll(bleController.receivedACCDataQueue);
+      bleController.receivedACCDataQueue.clear();
+      // 자이로스코프 데이터 처리
+      gyroDataList.addAll(bleController.receivedGyroDataQueue);
+      bleController.receivedGyroDataQueue.clear();
+      // 자력계 데이터 처리
+      magDataList.addAll(bleController.receivedMagDataQueue);
+      bleController.receivedMagDataQueue.clear();
+
+      if (ppgDataList.isNotEmpty) {
+        List<double> resultPPG = dataSource.getScalarData(ppgDataList, 50);
+        List<List<double>> resultACC = dataSource.getAxisData(accDataList, 50);
+        List<List<double>> resultGyro =
+            dataSource.getAxisData(gyroDataList, 50);
+        List<List<double>> resultMag = dataSource.getAxisData(magDataList, 50);
+
+        rxppgDataList.value = dataSource.getScalarData(ppgDataList, 50);
+        rxaccDataList.value = dataSource.getAxisData(accDataList, 50);
+        rxgyroDataList.value = dataSource.getAxisData(gyroDataList, 50);
+        rxmagDataList.value = dataSource.getAxisData(magDataList, 50);
+
+        debugPrint("PPG data for 1 seconds : $resultPPG");
+        debugPrint("ACC data for 1 seconds: $resultACC");
+        debugPrint("Gyro data for 1 seconds: $resultGyro");
+        debugPrint("Mag data for 1 seconds: $resultMag");
+      }
+    });
+  }
 ```
 
 ### 1.3 BLE 장치에 명령어 전송
