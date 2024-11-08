@@ -75,6 +75,29 @@ Future<void> requestPermissions() async {
   }
 }
 ```
+</br>
+
+## SDK가 제공하는 결과 데이터
+장비에서 측정한 결과 데이터를 SDK에서 확인할 수 있습니다.</br>
+다음과 같은 결과 데이터 항목들이 제공됩니다.
+<ol>
+<li>PPG: PPG(Photoplethysmography)의 raw data</li> 
+<li>9 Axis IMU data</li>   
+ <ul>
+   <li>
+     ACC: 가속도(Acceleration) 데이터
+   </li>
+   <li>
+     GYRO: 자이로스코프(Gyroscope) 데이터
+   </li>
+   <li>
+     MAG: 지자기(Magnetometer) 데이터
+   </li>   
+ </ul>
+</ol>
+</br>
+</br>
+
 
 
 ## 요구사항
