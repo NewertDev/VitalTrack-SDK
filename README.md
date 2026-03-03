@@ -1,3 +1,213 @@
+아래는 **VitalTrack & EmoConnect SDK** 문서의 영문 버전입니다.
+
+---
+
+# VitalTrack & EmoConnect SDK
+
+## Introduction
+
+**VitalTrack & EmoConnect SDK** is a Flutter-based library that enables the collection and processing of **PPG and IMU data** via BLE devices.
+With this SDK, you can easily implement **real-time biosignal recording** and BLE communication between devices.
+
+---
+
+## 1. Usage
+
+VitalTrack & EmoConnect SDK provides features for **BLE device scanning, connection, data collection, and command transmission**.
+Below are examples of how to use the main features.
+
+---
+
+### 1.1 Scanning and Connecting to BLE Devices
+
+You can start scanning for BLE devices and connect to a selected device.
+
+```dart
+final bleController = BleController();  // Create controller instance
+
+void startScanAndConnect() async {
+  bleController.startScan();  // Start scanning
+
+  // Connect to the first discovered device
+  if (bleController.devices.isNotEmpty) {
+    DiscoveredDevice selectedDevice = bleController.devices.first;
+    await bleController.connectToDevice(selectedDevice);
+  }
+}
+```
+
+---
+
+### 1.2 Data Collection and Real-Time Processing
+
+Set up a timer to collect and process PPG and IMU data.
+
+```dart
+void startDataCollection() async {
+  // Start data collection
+  bleController.writeCMDToDevice(CMD.ON_1V8);
+  await Future.delayed(const Duration(milliseconds: 10));
+  bleController.writeCMDToDevice(CMD.START_PPG);
+  await Future.delayed(const Duration(milliseconds: 10));
+  bleController.writeCMDToDevice(CMD.SETUP_DATA);
+
+  // Collect data every second
+  _startGetDataTimer();  
+}
+
+void _startGetDataTimer() {
+  bleController.receivedPPGDataQueue.clear();
+  bleController.receivedACCDataQueue.clear();
+  bleController.receivedGyroDataQueue.clear();
+  bleController.receivedMagDataQueue.clear();
+
+  var dataSource = DataSource();
+
+  _dataTimer =
+      Timer.periodic(const Duration(milliseconds: 1000), (timer) async {
+    List<double> ppgDataList = [];
+    List<List<double>> accDataList = [];
+    List<List<double>> gyroDataList = [];
+    List<List<double>> magDataList = [];
+
+    // Process PPG data
+    ppgDataList.addAll(bleController.receivedPPGDataQueue);
+    bleController.receivedPPGDataQueue.clear();
+
+    // Process Accelerometer data
+    accDataList.addAll(bleController.receivedACCDataQueue);
+    bleController.receivedACCDataQueue.clear();
+
+    // Process Gyroscope data
+    gyroDataList.addAll(bleController.receivedGyroDataQueue);
+    bleController.receivedGyroDataQueue.clear();
+
+    // Process Magnetometer data
+    magDataList.addAll(bleController.receivedMagDataQueue);
+    bleController.receivedMagDataQueue.clear();
+
+    if (ppgDataList.isNotEmpty) {
+      List<double> resultPPG = dataSource.getScalarData(ppgDataList, 50);
+      List<List<double>> resultACC = dataSource.getAxisData(accDataList, 50);
+      List<List<double>> resultGyro =
+          dataSource.getAxisData(gyroDataList, 50);
+      List<List<double>> resultMag = dataSource.getAxisData(magDataList, 50);
+
+      rxppgDataList.value = resultPPG;
+      rxaccDataList.value = resultACC;
+      rxgyroDataList.value = resultGyro;
+      rxmagDataList.value = resultMag;
+
+      debugPrint("PPG data for 1 second : $resultPPG");
+      debugPrint("ACC data for 1 second : $resultACC");
+      debugPrint("Gyro data for 1 second : $resultGyro");
+      debugPrint("Mag data for 1 second : $resultMag");
+    }
+  });
+}
+```
+
+---
+
+### 1.3 Sending Commands to the BLE Device
+
+You can send commands to the BLE device as needed.
+
+```dart
+void setTimeToDevice() {
+  String time = DateTime.now().toString();
+  bleController.writeDataToDevice("SET TIME $time");
+}
+
+void sendHeartRateToDevice(double hr) {
+  bleController.writeDataToDevice("SET BPM ${hr.toStringAsFixed(0)}");
+}
+```
+
+---
+
+### 1.4 Stopping Data and Rebooting the Device
+
+Stop data collection and reboot the device if necessary.
+
+```dart
+void stopAndRebootDevice() {
+  bleController.writeCMDToDevice(CMD.STOP_PPG);
+  bleController.writeCMDToDevice(CMD.REBOOT_PPG);
+}
+```
+
+---
+
+## Permissions
+
+The app must request storage permissions for BLE communication and data storage.
+
+```dart
+Future<void> requestPermissions() async {
+  var status = await Permission.storage.status;
+  if (!status.isGranted) {
+    await Permission.storage.request();
+  }
+}
+```
+
+---
+
+## Data Provided by the SDK
+
+The SDK allows you to access measurement data collected from the device.
+
+The following data types are provided:
+
+1. **PPG (Photoplethysmography) Raw Data**
+
+   * 50 samples per second (50 Hz)
+
+2. **9-Axis IMU Data**
+
+   * **ACC (Acceleration)**: 50 samples per second (50 Hz)
+   * **GYRO (Gyroscope)**: 50 samples per second (50 Hz)
+   * **MAG (Magnetometer)**: 50 samples per second (50 Hz)
+
+---
+
+## Requirements
+
+Below are the environment requirements to run the SDK.
+
+### System Requirements
+
+* Flutter SDK: >= 3.0.0
+* Dart SDK: >= 2.18.0
+* Android API Level: 23 or higher
+* Windows OS: 10 or higher
+
+---
+
+## Development Environment
+
+* Flutter Version: 3.22.2 (stable channel)
+* Android SDK Version: 34.0.0
+* Visual Studio Community 2022: 17.3.6
+* Android Studio: 2022.3 (latest version recommended)
+
+---
+
+## Notes
+
+* Ensure that the correct Java version is configured when installing Android Studio.
+* Always request BLE permissions on platforms that require them.
+* Check network conditions and device distance when connecting to BLE devices.
+
+---
+
+For inquiries and support, please visit the official website:
+**[www.newert.co.kr](http://www.newert.co.kr)**
+
+
+
+
 # VitalTrack & EmoConnect SDK
 
 ## 소개
