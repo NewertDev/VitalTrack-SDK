@@ -1,3 +1,7 @@
+## 0.1.1
+
+- iOS core added (iOS 15.0+).
+
 ## 0.1.0
 
 - First release: scan, connect, start/stop; clean EEG, electrode contact,

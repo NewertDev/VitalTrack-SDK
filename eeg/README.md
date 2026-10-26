@@ -1,4 +1,4 @@
-# VitalTrack EEG SDK (Flutter) 0.1.0
+# VitalTrack EEG SDK (Flutter) 0.1.1
 
 VitalTrack EEG 보드에 연결해 **정제된 EEG**, 전극 접촉 상태, 밴드파워,
 움직임(가속도·자이로), 배터리 상태를 받는 Flutter 패키지입니다.
@@ -10,7 +10,7 @@ VitalTrack EEG 보드에 연결해 **정제된 EEG**, 전극 접촉 상태, 밴�
 | 플랫폼 | 지원 |
 |---|---|
 | Android | 7.0 (API 24) 이상, arm64-v8a / armeabi-v7a / x86_64 |
-| iOS | 준비 중 (다음 버전, 13.0 이상) |
+| iOS | 15.0 이상 |
 | Windows | 10 이상, x64 |
 | Linux | x64, glibc 2.34 이상 (Ubuntu 22.04 이상), BlueZ |
 
@@ -25,7 +25,7 @@ dependencies:
     git:
       url: https://github.com/NewertDev/VitalTrack-SDK.git
       path: eeg
-      ref: eeg-v0.1.0
+      ref: eeg-v0.1.1
 ```
 
 zip으로 받았다면 `vitaltrack_eeg` 폴더를 프로젝트 옆에 두고 경로로 추가합니다.

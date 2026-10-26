@@ -1,6 +1,6 @@
 name: vitaltrack_eeg
 description: "VitalTrack EEG SDK: connect to VitalTrack EEG boards and receive clean EEG, electrode contact, band power, motion and battery state."
-version: 0.1.0
+version: 0.1.1
 publish_to: 'none'
 
 environment:
