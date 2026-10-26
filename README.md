@@ -4,7 +4,7 @@ Newert VitalTrack 장비에서 데이터를 받는 Flutter SDK 모음입니다. 
 
 | SDK | 폴더 | 패키지 | 최신 버전 | 플랫폼 |
 |---|---|---|---|---|
-| **VitalTrack EEG** — 정제된 EEG(최대 8채널, 250 Hz), 전극 접촉, 밴드파워, 움직임, 배터리 | [`eeg/`](eeg/README.md) | `vitaltrack_eeg` | [`eeg-v0.1.0`](../../tree/eeg-v0.1.0/eeg) | Android, Windows, Linux (iOS 준비 중) |
+| **VitalTrack EEG** — 정제된 EEG(최대 8채널, 250 Hz), 전극 접촉, 밴드파워, 움직임, 배터리 | [`eeg/`](eeg/README.md) | `vitaltrack_eeg` | [`eeg-v0.1.1`](../../tree/eeg-v0.1.1/eeg) | Android, iOS, Windows, Linux |
 | **VitalTrack & EmoConnect** — PPG, IMU | [`ppg/`](ppg/README.md) | — | `ppg-legacy` | Android, iOS |
 
 ## 설치 (EEG)
@@ -17,7 +17,7 @@ dependencies:
     git:
       url: https://github.com/NewertDev/VitalTrack-SDK.git
       path: eeg
-      ref: eeg-v0.1.0
+      ref: eeg-v0.1.1
 ```
 
 ```dart
@@ -50,10 +50,10 @@ Flutter SDKs for Newert VitalTrack devices, one folder per device.
 
 | SDK | Folder | Package | Latest | Platforms |
 |---|---|---|---|---|
-| **VitalTrack EEG** — clean EEG (up to 8 channels, 250 Hz), electrode contact, band power, motion, battery | [`eeg/`](eeg/README.md) | `vitaltrack_eeg` | [`eeg-v0.1.0`](../../tree/eeg-v0.1.0/eeg) | Android, Windows, Linux (iOS coming) |
+| **VitalTrack EEG** — clean EEG (up to 8 channels, 250 Hz), electrode contact, band power, motion, battery | [`eeg/`](eeg/README.md) | `vitaltrack_eeg` | [`eeg-v0.1.1`](../../tree/eeg-v0.1.1/eeg) | Android, iOS, Windows, Linux |
 | **VitalTrack & EmoConnect** — PPG, IMU | [`ppg/`](ppg/README.md) | — | `ppg-legacy` | Android, iOS |
 
-Install the EEG SDK by adding it to `pubspec.yaml` as a git dependency (`path: eeg`, `ref: eeg-v0.1.0`,
+Install the EEG SDK by adding it to `pubspec.yaml` as a git dependency (`path: eeg`, `ref: eeg-v0.1.1`,
 see above). Each SDK is tagged separately (`eeg-v*`, `ppg-v*`); pin a tag with `ref`. The old layout,
 with the PPG code at the repository root, is kept under the `ppg-legacy` tag.
 
